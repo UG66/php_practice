@@ -113,14 +113,96 @@
 
   echo ('<br>');
 
-  $x = ''; // true / false (変数を文字だけの場合、文字がある→true)
+  $x = 'x'; // true / false (変数を文字だけの場合、文字がある→true)
   if ($x) { //if文には条件の省略というのがあるが慣れるまで大変
     //詳しくはphpudemyの22、if文を参照
     print('xには文字が入っています');
   }
   ?>
 
-  草生やすぞpart2
+  <?php echo ('<br>'); ?>
+
+  <!-- 12.ceil floor round -->
+  <p>3000円のものから100円値引きした場合は、
+
+    <?php print(floor(100 / 3000 * 100)); ?>
+    <!--少数を切り捨て：floor-->
+    %引きです。
+  </p>
+
+
+  <p>3000円のものから100円値引きした場合は、
+
+    <?php print(ceil(100 / 3000 * 100)); ?>
+    <!--少数を切り上げ：ceil-->
+    %引きです。
+  </p>
+
+  <p>3000円のものから100円値引きした場合は、
+
+    <?php print(round(100 / 3000 * 100, 1)); ?>
+    <!--四捨五入：round-->
+    %引きです。
+  </p>
+
+  <!-- 13. 書式を整える -->
+  <?php
+  $date = sprintf('%04d年 %02d月 %02d日', 2021, 1, 19);
+  print($date);
+
+  // %04d:0 ⇨ この位置に記された数字や空白で補う　4 ⇨ この位置に記された数字の桁数で表示　d ⇨ 数字で表示する
+  // 文字を表示したい場合は s を使う。
+  ?>
+
+  <!-- 14. file_put_contents 情報をファイルに保存する-->
+  <?php
+  $success = file_put_contents("../../news_date/news.html", "2021-01-19 ホームページをリニューアル");
+
+  if ($success) {
+    print('ファイルへの書き込みが完了しました');
+  } else {
+    print('ファイルへの書き込みに失敗しました。フォルダの権限を確認してください。');
+  }
+
+  ?>
+
+  <?php echo ('<br>'); ?>
+
+  <!-- 15. file_get_contents ファイルを読み込む -->
+  <?php
+  $news = file_get_contents("../../news_date/news.html");
+  $news .= "2021-1-13 ニュースを追加しました。"; //.= 文字列連結
+  file_put_contents("../../news_date/news.html", $news);
+  print($news);
+
+  // readfile("../../news_date/news.html")
+  // readfileはあくまでも読み込み専用。書き換えなどはできない。
+  ?>
+
+  <!-- 16. simplexml_load_file XMLファイルを読み込む -->
+  <!-- <?php
+        $xmlTree = simplexml_load_file("https://h2o-space.com/feed/");
+        foreach ($xmlTree->channel->item as $item) :
+        ?>
+    ・<a href="<?php print($item->link); ?>"> <?php print($item->title); ?> </a>
+  <?php
+        endforeach;
+  ?> -->
+
+  <!-- 17. jsonを読み込む -->
+  <!-- JSON JavaScript Object Notation -->
+  <!-- <?php
+        $file = file_get_contents("https://h20-space.com/feed/json/");
+        $json = json_decode($file);
+
+        foreach ($json->$items as $item) :
+        ?>
+    ・<a href="<?php print($item->url); ?>"><?php print($item->title); ?> </a>
+  <?php
+        endforeach;
+  ?> -->
+
+  <!-- 18. フォームに入力した内容を取得する -->
 
 </body>
 
