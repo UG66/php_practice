@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>index.php</title>
 </head>
 
 <body>
@@ -192,18 +192,54 @@
   <!-- 17. jsonを読み込む -->
   <!-- JSON JavaScript Object Notation -->
   <!-- <?php
-        $file = file_get_contents("https://h20-space.com/feed/json/");
-        $json = json_decode($file);
+        //       $file = file_get_contents("https://h20-space.com/feed/json/");
+        //       $json = json_decode($file);
 
-        foreach ($json->$items as $item) :
+        //       foreach ($json->$items as $item) :
+        //
         ?>
-    ・<a href="<?php print($item->url); ?>"><?php print($item->title); ?> </a>
+  //   ・<a href="<?php print($item->url); ?>"><?php print($item->title); ?> </a>
+  // <?php
+      //       endforeach;
+      ?> -->
+  <br>
+  <!-- 21.半角数字に直す -->
   <?php
-        endforeach;
-  ?> -->
 
-  <!-- 18. フォームに入力した内容を取得する -->
+  $age = 20;
+
+  $age = mb_convert_kana($age, 'n', 'UTF-8'); //nは数字を半角に直す
+
+  if (is_numeric($age)) {
+    print($age . '歳');
+  } else {
+    print('＊　年齢が数字ではありません');
+  }
+  ?>
+
+  <br>
+  <!-- 22.正規表現 -->
+  <?php
+  $zip = '83749387';
+
+  $zip = mb_convert_kana($zip, 'a', 'UTF-8'); //aは英数字を半角に直す
+  if (preg_match("/\A\d{3}[-]\d{4}\z/", $zip)) {
+    print('郵便番号：〒' . $zip);
+  } else {
+    print('* 郵便番号ではありません');
+  }
+
+  ?>
+
+  <br>
+
 
 </body>
 
 </html>
+
+<!-- 23.ページジャンプ -->
+<!-- <?php
+      header('Location: https://h2o-space.com');
+      exit();
+      ?> -->
